@@ -1,42 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.bobrusha.android.yandex.english.ui.fragment.ChooseTranslationFragment">
-
-
-        >
+    <data>
+        <variable name="chooseTranslationViewModel" type="com.bobrusha.android.yandex.english.model.ChooseTranslationViewModel" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp">
-            <android.support.v7.widget.AppCompatButton
-                android:layout_height="wrap_content"
-                android:width="14dp"
-                android:height="14dp"
-                android:background="@drawable/icn_close"
-
-                android:layout_width="wrap_content">
-
-            </android.support.v7.widget.AppCompatButton>
-        <ProgressBar
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:max="10"
-            android:progress="@{chooseTranslationViewModel.count}"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:layout_height="wrap_content"
-            android:width="14dp"
-            android:height="14dp"
-            android:background="@drawable/icn_close"
-
-            android:layout_width="wrap_content">
-
-        </android.support.v7.widget.AppCompatButton>
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:max="10"
+                android:progress="@{chooseTranslationViewModel.count}"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -92,9 +74,9 @@
         </TableLayout>
 
 
+    </LinearLayout>
 
 
 
-
-</LinearLayout>
+</layout>
 
