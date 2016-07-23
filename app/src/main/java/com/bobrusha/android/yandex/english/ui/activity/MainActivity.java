@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
+            MainFragment fragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_content, new MainFragment())
+                    .add(R.id.fragment_content, fragment, fragment.getClass().getName())
                     .commit();
             ((TextView) findViewById(R.id.toolbar_title)).setText(R.string.main_title);
         }

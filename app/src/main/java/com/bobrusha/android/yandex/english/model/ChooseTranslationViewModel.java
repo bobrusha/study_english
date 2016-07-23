@@ -2,6 +2,9 @@ package com.bobrusha.android.yandex.english.model;
 
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
+import android.transition.Visibility;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,10 +49,43 @@ public class ChooseTranslationViewModel {
         }
     }
 
-    public void checkCurrentWord(Word word) {
+    public ObservableField<Integer> rightVisability = new ObservableField<>(View.GONE);
+    public ObservableField<Integer> nonRightVisability = new ObservableField<>(View.GONE);
+
+    public boolean checkCurrentWord(Word word) {
         Word currentWord = chooseTranslationOneSlice.get().word;
         Word translation = wordStore.getTraslation(currentWord);
-        userResults.put(currentWord, translation.getText().equals(word.getText()));
+        final boolean equals = translation.getText().equals(word.getText());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (equals) {
+                    rightVisability.set(View.VISIBLE);
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        rightVisability.set(View.GONE);
+                    }
+                }
+                else {
+                    nonRightVisability.set(View.VISIBLE);
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        nonRightVisability.set(View.GONE);
+                    }
+                }
+            }
+        }).start();
+
+        userResults.put(currentWord, equals);
+        return equals;
     }
 
     public ArrayList<Word> getUsedWords() {

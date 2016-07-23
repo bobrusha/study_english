@@ -1,82 +1,193 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bobrusha.android.yandex.english.ui.fragment.ChooseTranslationFragment">
+>
     <data>
         <variable name="chooseTranslationViewModel" type="com.bobrusha.android.yandex.english.model.ChooseTranslationViewModel" />
     </data>
-    <LinearLayout
-        android:orientation="vertical">
 
-        <LinearLayout
+    <LinearLayout
+        android:orientation="vertical"
+
+    tools:context="com.bobrusha.android.yandex.english.ui.fragment.ChooseTranslationFragment">
+
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="50dp"
+            android:id="@+id/rel_layout"
+            >
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/close_btn"
+                android:padding="6dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/icn_close"
+                android:layout_width="20dp">
+
+            </android.support.v7.widget.AppCompatButton>
             <ProgressBar
+
                 style="@android:style/Widget.ProgressBar.Horizontal"
+
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/close_btn"
+                android:layout_toLeftOf="@+id/skip_btn"
                 android:layout_width="match_parent"
                 android:max="10"
                 android:progress="@{chooseTranslationViewModel.count}"
-                android:layout_height="wrap_content" />
+                android:layout_height="10dp" />
 
-        </LinearLayout>
+            <android.support.v7.widget.AppCompatButton
+                android:layout_height="20dp"
+                android:layout_width="20dp"
+                android:padding="6dp"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+
+                android:id="@+id/skip_btn"
+                android:background="@drawable/icn_skip_next"
+
+                >
+
+            </android.support.v7.widget.AppCompatButton>
+
+        </RelativeLayout>
 
 
         <TextView
             android:text="Выбирете правильный вариант перевода"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
+            android:textAllCaps="true"
+            android:layout_margin="17dp"
+            android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="328dp">
+              android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:textAlignment="center"
+                android:gravity="center"
+                android:layout_margin="16dp"
+                android:textSize="48sp"
+                android:background="@drawable/shadow"
                 android:id="@+id/task_word"
                 android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.word.text}"
-
-
-                android:layout_height="wrap_content"
+                android:layout_height="144dp"
+                android:shadowDx="1"
+                android:shadowColor="@color/cardview_dark_background"
+                android:shadowDy="1"
+                android:shadowRadius="2"
                 />
+
+            <LinearLayout
+                android:layout_margin="16dp"
+                android:orientation="vertical"
+                android:layout_below="@+id/task_word"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <LinearLayout
+
+                    android:id="@+id/top_buttons"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/task_word"
+                    android:layout_width="match_parent">
+
+                    <android.support.v7.widget.AppCompatButton
+
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/firstVariantButton"
+                        android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.first.text}"
+                        android:layout_height="match_parent" />
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/secondVariantButton"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.second.text}"/>
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    >
+
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/thVariantButton"
+                        android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.third.text}"
+                        android:layout_width="match_parent" />
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/forthVariantButton"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.forth.text}"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/holo_green_dark"
+                android:visibility="@{chooseTranslationViewModel.rightVisability}"
+                android:layout_height="100dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="48sp"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="Верно"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/holo_red_dark"
+                android:visibility="@{chooseTranslationViewModel.nonRightVisability}"
+                android:layout_height="100dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="48sp"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="Неправильно"/>
+
+            </FrameLayout>
         </RelativeLayout>
 
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            >
-            <TableRow>
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/firstVariantButton"
-                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.first.text}"/>
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/secondVariantButton"
-                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.second.text}"/>
-            </TableRow>
-            <TableRow>
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/thVariantButton"
-                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.third.text}"/>
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/forthVariantButton"
-                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.forth.text}"/>
-            </TableRow>
-
-
-        </TableLayout>
-
-
     </LinearLayout>
-
-
-
 </layout>
+
+
 
