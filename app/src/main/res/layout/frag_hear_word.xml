@@ -3,10 +3,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/hear_progress_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:max="10"/>
+
     <TextView
         android:id="@+id/text_view_what_to_do"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/hear_progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="81dp"
         android:text="Введите услышанное слово"
