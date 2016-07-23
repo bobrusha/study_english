@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">English</string>
-    
+
     <!-- Main Fragment -->
-    
-    <string name="training_cards">Карточки</string>
-    <string name="training_speak_words">Проговаривание слов</string>
-    <string name="training_listen_words">Слово на слух</string>
-    <string name="training_find_pair">Поиск пары</string>
-    <string name="training_make_word">Составление слова</string>
-    <string name="training_correct_not_correct">Верно – неверно</string>
-    <string name="training_choose_translation">Выбор перевода</string>
-    <string name="training_translate_image">Перевод по картинке</string>
+    <string-array name="main_menu">
+        <item name="training_cards">Карточки</item>
+        <item name="training_speak_words">Проговаривание слов</item>
+        <item name="training_listen_words">Слово на слух</item>
+        <item name="training_find_pair">Поиск пары</item>
+        <item name="training_make_word">Составление слова</item>
+        <item name="training_correct_not_correct">Верно – неверно</item>
+        <item name="training_choose_translation">Выбор перевода</item>
+        <item name="training_translate_image">Перевод по картинке</item>
+    </string-array>
 
 </resources>
