@@ -23,9 +23,12 @@ import ru.yandex.speechkit.VocalizerListener;
  */
 public class ListenWordTrainingFragment extends Fragment implements VocalizerListener {
     private String API_KEY = "b11774cd-2d45-4391-927e-84740d49961f";
+
+    private TextView answerField;
     private Vocalizer vocalizer;
     private WordStore wordStore;
     private String word;
+    private StringBuilder letters = new StringBuilder();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
             }
         });
 
+        answerField = (TextView) v.findViewById(R.id.answer_field);
         FlexboxLayout flexbox = (FlexboxLayout) v.findViewById(R.id.flexbox_letters);
         addViews(flexbox, word);
 
@@ -62,6 +66,8 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
             String c = "" + s.charAt(i);
             tv.setText(c);
             flexboxLayout.addView(letterView);
+
+            letterView.setOnClickListener(new MyClickListener(c));
         }
 
     }
@@ -89,5 +95,25 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
     @Override
     public void onVocalizerError(Vocalizer vocalizer, Error error) {
 
+    }
+
+    public class MyClickListener implements View.OnClickListener {
+        private String letter;
+
+        public MyClickListener(String letter) {
+            this.letter = letter;
+        }
+
+        @Override
+        public void onClick(View view) {
+            letters.append(letter);
+            if (!word.startsWith(letters.toString())) {
+                letters.deleteCharAt(letters.length() - 1);
+            } else {
+                answerField.setText(letters.toString());
+                answerField.invalidate();
+            }
+
+        }
     }
 }
