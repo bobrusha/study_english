@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bobrusha.android.yandex.english.R;
 import com.bobrusha.android.yandex.english.model.WordStore;
@@ -72,6 +73,30 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
 
     }
 
+    public class MyClickListener implements View.OnClickListener {
+        private String letter;
+
+        public MyClickListener(String letter) {
+            this.letter = letter;
+        }
+
+        @Override
+        public void onClick(View view) {
+            letters.append(letter);
+            if (!word.startsWith(letters.toString())) {
+                letters.deleteCharAt(letters.length() - 1);
+            } else {
+                answerField.setText(letters.toString());
+                answerField.invalidate();
+                if (letters.toString().equals(word)) {
+                    Toast.makeText(getActivity(), "Молодец!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    }
+
+    // I don't have time to implement this
     @Override
     public void onSynthesisBegin(Vocalizer vocalizer) {
 
@@ -97,23 +122,5 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
 
     }
 
-    public class MyClickListener implements View.OnClickListener {
-        private String letter;
 
-        public MyClickListener(String letter) {
-            this.letter = letter;
-        }
-
-        @Override
-        public void onClick(View view) {
-            letters.append(letter);
-            if (!word.startsWith(letters.toString())) {
-                letters.deleteCharAt(letters.length() - 1);
-            } else {
-                answerField.setText(letters.toString());
-                answerField.invalidate();
-            }
-
-        }
-    }
 }
