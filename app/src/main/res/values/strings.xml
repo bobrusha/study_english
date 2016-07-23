@@ -2,6 +2,7 @@
     <string name="app_name">English</string>
 
     <!-- Main Fragment -->
+    <string name="main_title">Режим обучения </string>
     <string-array name="main_menu">
         <item name="training_cards">Карточки</item>
         <item name="training_speak_words">Проговаривание слов</item>

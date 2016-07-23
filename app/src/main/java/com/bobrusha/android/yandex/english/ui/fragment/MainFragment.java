@@ -2,6 +2,7 @@ package com.bobrusha.android.yandex.english.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.util.Arrays;
  * Created by Aleksandra on 23/07/16.
  */
 public class MainFragment extends Fragment {
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private RecyclerView recyclerView;
 
     @Nullable
@@ -30,8 +32,6 @@ public class MainFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.rw_trainings);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new TrainingAdapter(Arrays.asList(menu)));
-
-
 
         return v;
     }
