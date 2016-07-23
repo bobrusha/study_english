@@ -1,0 +1,81 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bobrusha.android.yandex.english.ui.fragment.ChooseTranslationFragment">
+    <data>
+        <variable name="chooseTranslationViewModel" type="com.bobrusha.android.yandex.english.model.ChooseTranslationViewModel" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:max="10"
+            android:progress="@{chooseTranslationViewModel.count}"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:text="Выбирете правильный вариант перевода"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="328dp">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:id="@+id/task_word"
+                android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.word.text}"
+
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+            <TableRow>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/firstVariantButton"
+                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.first.text}"/>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/secondVariantButton"
+                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.second.text}"/>
+            </TableRow>
+            <TableRow>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/thVariantButton"
+                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.third.text}"/>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/forthVariantButton"
+                    android:text="@{chooseTranslationViewModel.chooseTranslationOneSlice.forth.text}"/>
+            </TableRow>
+
+
+        </TableLayout>
+
+
+    </LinearLayout>
+
+
+
+</layout>
+
