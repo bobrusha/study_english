@@ -26,6 +26,14 @@ public class MainFragment extends Fragment {
                 ((MainActivity) getActivity()).openNewFragment(new ChooseTranslationFragment());
             }
         });
+
+        v.findViewById(R.id.option_hear_word).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).openNewFragment(new ListenWordTrainingFragment());
+            }
+        });
+
         return v;
     }
 
