@@ -14,6 +14,10 @@ import com.bobrusha.android.yandex.english.R;
 import com.bobrusha.android.yandex.english.model.WordStore;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import ru.yandex.speechkit.Error;
 import ru.yandex.speechkit.SpeechKit;
 import ru.yandex.speechkit.Synthesis;
@@ -24,19 +28,18 @@ import ru.yandex.speechkit.VocalizerListener;
  * Created by Aleksandra on 23/07/16.
  */
 public class ListenWordTrainingFragment extends Fragment implements VocalizerListener {
-    private String API_KEY = "b11774cd-2d45-4391-927e-84740d49961f";
-
-
-    private int correctAnswerCounter = 0;
-    private ProgressBar progressBar;
-    private TextView answerField;
+    private final static String API_KEY = "b11774cd-2d45-4391-927e-84740d49961f";
     private Vocalizer vocalizer;
+
     private WordStore wordStore;
     private String word;
     private StringBuilder letters = new StringBuilder();
 
+    private ProgressBar progressBar;
     private Snackbar snackbar;
     private FlexboxLayout flexbox;
+    private TextView answerField;
+    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +52,8 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.frag_hear_word, container, false);
-        v.findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
+        rootView = inflater.inflate(R.layout.frag_hear_word, container, false);
+        rootView.findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.ENGLISH, word, true, Vocalizer.Voice.JANE);
@@ -59,26 +62,26 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
             }
         });
 
-        answerField = (TextView) v.findViewById(R.id.answer_field);
-        flexbox = (FlexboxLayout) v.findViewById(R.id.flexbox_letters);
-        progressBar = (ProgressBar) v.findViewById(R.id.hear_progress_bar);
+        answerField = (TextView) rootView.findViewById(R.id.answer_field);
+        flexbox = (FlexboxLayout) rootView.findViewById(R.id.flexbox_letters);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.hear_progress_bar);
         addViews(flexbox, word);
 
-        snackbar = Snackbar.make(v, "ВЕРНО!", Snackbar.LENGTH_LONG);
-        snackbar.show();
 
-        return v;
+        return rootView;
     }
 
     private void addViews(FlexboxLayout flexboxLayout, String s) {
-        for (int i = 0; i < s.length(); ++i) {
+        List<String> letters = shuffleLetters(s);
+        for (String l : letters) {
             View letterView = LayoutInflater.from(getActivity()).inflate(R.layout.view_one_letter, flexboxLayout, false);
+
             TextView tv = (TextView) letterView.findViewById(R.id.letter_text_view);
-            String c = "" + s.charAt(i);
-            tv.setText(c);
+            tv.setText(l);
+
             flexboxLayout.addView(letterView);
 
-            letterView.setOnClickListener(new MyClickListener(c));
+            letterView.setOnClickListener(new MyClickListener(l));
         }
 
     }
@@ -96,11 +99,11 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
             if (!word.startsWith(letters.toString())) {
                 letters.deleteCharAt(letters.length() - 1);
             } else {
-                ++correctAnswerCounter;
                 answerField.setText(letters.toString());
                 answerField.invalidate();
                 if (letters.toString().equals(word)) {
-
+                    snackbar = Snackbar.make(rootView, "ВЕРНО!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                     updateTraining();
                     progressBar.incrementProgressBy(1);
                 }
@@ -117,6 +120,14 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
         addViews(flexbox, word);
     }
 
+    public List<String> shuffleLetters(String s) {
+        List<String> characters = new ArrayList<>(s.length());
+        for (int i = 0; i < s.length(); ++i) {
+            characters.add(s.substring(i, i + 1));
+        }
+        Collections.shuffle(characters);
+        return characters;
+    }
 
     // I don't have time to implement this
     @Override

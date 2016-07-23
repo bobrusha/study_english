@@ -28,12 +28,6 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.fragment_content, new MainFragment())
                     .commit();
             ((TextView) findViewById(R.id.toolbar_title)).setText(R.string.main_title);
-            ((ImageView) findViewById(R.id.settings)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // openFragment(new SettingsFragment());
-                }
-            });
         }
     }
 
