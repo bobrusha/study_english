@@ -72,8 +72,14 @@ public class ChooseTranslationFragment extends Fragment {
                     choosedWord =  chooseTranslationOneSlice.forth;
                 }
                 boolean right = chooseTranslationViewModel.checkCurrentWord(choosedWord);
+                if (chooseTranslationViewModel.isEnd()) {
+                    backToMainFragment();
+                }
                 chooseTranslationViewModel.createSlice();
+
             }
+
+
         };
 
         skip_btn.setOnClickListener(new View.OnClickListener() {
@@ -86,11 +92,7 @@ public class ChooseTranslationFragment extends Fragment {
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getActivity()
-                        .getSupportFragmentManager();
-                MainFragment mainFragment = (MainFragment)fm.findFragmentByTag(MainFragment.class.getName());
-                fm.beginTransaction().replace(R.id.fragment_content, mainFragment).commit();
-                // fm.popBackStack (this.getClass().getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                backToMainFragment();
             }
         });
 
@@ -101,6 +103,11 @@ public class ChooseTranslationFragment extends Fragment {
         forthVariantButton.setOnClickListener(buttonListener);
         return root;
     }
-
+    private void backToMainFragment() {
+        FragmentManager fm = getActivity()
+                .getSupportFragmentManager();
+        MainFragment mainFragment = (MainFragment)fm.findFragmentByTag(MainFragment.class.getName());
+        fm.beginTransaction().replace(R.id.fragment_content, mainFragment).commit();
+    }
 
 }
