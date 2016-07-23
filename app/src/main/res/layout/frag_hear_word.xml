@@ -58,7 +58,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        app:flexWrap="wrap">
+        app:flexWrap="wrap"
+        app:justifyContent="center">
 
     </com.google.android.flexbox.FlexboxLayout>
 
