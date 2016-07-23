@@ -2,9 +2,7 @@ package com.bobrusha.android.yandex.english.model;
 
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
-
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 
 /**
@@ -32,24 +30,26 @@ public class ChooseTranslationViewModel {
             value.word = randomWord;
             usedWords.add(randomWord);
             value.translation = wordStore.getTraslation(randomWord);
-            value.first = wordStore.getRandomWord();
-            value.second = wordStore.getRandomWord();
-            value.third = randomWord;
-            value.forth = wordStore.getRandomWord();
+            if (randomWord.getLang() == Lang.En) {
+                value.first = wordStore.getRandomRusWord();
+                value.second = wordStore.getRandomRusWord();
+                value.third = value.translation;
+                value.forth = wordStore.getRandomRusWord();
+            }
+            else {
+                value.first = wordStore.getRandomEnWord();
+                value.second = wordStore.getRandomEnWord();
+                value.third = value.translation;
+                value.forth = wordStore.getRandomEnWord();
+            }
             chooseTranslationOneSlice.set(value);
         }
     }
 
     public void checkCurrentWord(Word word) {
-        Word translation = wordStore.getTraslation(chooseTranslationOneSlice.get().word);
-
-        if (translation.equals(word)) {
-            userResults.put(word, true);
-        }
-        else
-        {
-            userResults.put(word, false);
-        }
+        Word currentWord = chooseTranslationOneSlice.get().word;
+        Word translation = wordStore.getTraslation(currentWord);
+        userResults.put(currentWord, translation.getText().equals(word.getText()));
     }
 
     public ArrayList<Word> getUsedWords() {

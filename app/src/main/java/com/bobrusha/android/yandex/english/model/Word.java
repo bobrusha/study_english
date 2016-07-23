@@ -6,6 +6,8 @@ import android.net.LinkAddress;
  * Created by Andrey on 23.07.2016.
  */
 public class Word {
+
+    public static Word unknownWord = new Word("Unknown", Lang.En);
     private Lang lang;
     private String text;
 

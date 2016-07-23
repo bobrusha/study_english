@@ -3,6 +3,7 @@ package com.bobrusha.android.yandex.english.model;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -16,16 +17,25 @@ public class WordStore {
     private ArrayList<Word> rusWords = new ArrayList<>();
     private final Random random = new Random();
 
+    private final HashMap<Word, Word> translations = new HashMap<>();
+
     public WordStore() {
         ArrayList<Word> words = new ArrayList<>();
         for (String text : Consts.getEnWords()) {
             Word e = new Word(text, Lang.En);
             words.add(e);
+
+            if (Consts.translations.containsKey(text)) {
+                translations.put(e, new Word(Consts.translations.get(text), Lang.Rus));
+            }
             enWords.add(e);
         }
         for (String text : Consts.getRusWords()) {
             Word e = new Word(text, Lang.Rus);
             words.add(e);
+            if (Consts.translations.containsKey(text)) {
+                translations.put(e, new Word(Consts.translations.get(text), Lang.En));
+            }
             rusWords.add(e);
         }
         allWords = words;
@@ -51,6 +61,9 @@ public class WordStore {
 
     @NonNull
     public Word getTraslation(Word word) {
-        return allWords.get(0);
+        if (translations.containsKey(word)) {
+            return translations.get(word);
+        }
+        return Word.unknownWord;
     }
 }
