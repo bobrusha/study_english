@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class ChooseTranslationViewModel {
 
+    // Константы в Java пишутся в верхнем регистре
     private static final int max = 10;
     private WordStore wordStore;
     public final ObservableField<ChooseTranslationOneSlice> chooseTranslationOneSlice = new ObservableField<>();
@@ -34,6 +35,7 @@ public class ChooseTranslationViewModel {
             usedWords.add(randomWord);
             value.translation = wordStore.getTraslation(randomWord);
             if (randomWord.getLang() == Lang.En) {
+                // Тут могут получиться дубликаты. Лучше делать рандомную выборку подмассива из массива
                 value.first = wordStore.getRandomRusWord();
                 value.second = wordStore.getRandomRusWord();
                 value.third = value.translation;

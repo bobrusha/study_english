@@ -12,6 +12,7 @@ import java.util.Random;
 //Repository
 public class WordStore {
 
+    // В общем случае не стоит завязывать переменные на конкретные реализации List, Map. Вам же потом удобнее будет
     private ArrayList<Word> allWords;
     private ArrayList<Word> enWords = new ArrayList<>();
     private ArrayList<Word> rusWords = new ArrayList<>();

@@ -24,14 +24,25 @@ import com.bobrusha.android.yandex.english.model.WordStore;
  */
 public class ChooseTranslationFragment extends Fragment {
 
+    // Переменные в snake_case не пишутся. Рекомендую поглядеть и запомнить https://google.github.io/styleguide/javaguide.html
     private RelativeLayout rel_layout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Запоминать view при retain instance флаге - грубая ошибка. Фрагмент вообще не имеет права удерживать вьюхи после
+        // вызова onDestroyView. В данному же случае фрагмент будет удерживать view, а следовательно и context/activity.
+        // При изменении конфигурации старая активити должна будет уничтожиться, но не сможет, так как существует ссылка на нее.
+        // Если фрагмент тут же вернется (так как FragmentManager восстановил состояние), вызовется onCreateView, и ссылка
+        // перезатрется - только тогда старая активити отпустится. На это вы не можете полагаться.
         setRetainInstance(true);
     }
 
+    // При AppCompat активити она сама подменяет ряд стандартных виджетов на совместимые версии, так что
+    // совершенно необязательно в layout и в коде явно на них подвязываться.
+    // Если интересно, как он это делает, рекомендую ознакомиться https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.f86ef5pit
+    // а потом лезть в исходник :)
     private AppCompatButton firstVariantButton;
     private AppCompatButton secondVariantButton;
     private AppCompatButton thVariantButton;
