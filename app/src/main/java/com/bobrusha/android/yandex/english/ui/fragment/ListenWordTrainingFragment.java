@@ -71,6 +71,7 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
         return rootView;
     }
 
+    // Почему бы не дать сразу более разумное имя. Не просто ведь вьюхи добавляются, а буквы слова.
     private void addViews(FlexboxLayout flexboxLayout, String s) {
         List<String> letters = shuffleLetters(s);
         for (String l : letters) {
@@ -121,6 +122,7 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
     }
 
     public List<String> shuffleLetters(String s) {
+        // А почему не лист char'ов (String#charAt)?
         List<String> characters = new ArrayList<>(s.length());
         for (int i = 0; i < s.length(); ++i) {
             characters.add(s.substring(i, i + 1));
@@ -130,6 +132,8 @@ public class ListenWordTrainingFragment extends Fragment implements VocalizerLis
     }
 
     // I don't have time to implement this
+    // Ну и бросьте тогда new UnsupportedException("Not implemented yet"). Хорошая практика, особенно в командной разработке.
+    // А если это просто буйный интерефейс с кучей методов, которые вам не нужны, то заткните их комментарием в духе "// Ignore"
     @Override
     public void onSynthesisBegin(Vocalizer vocalizer) {
 

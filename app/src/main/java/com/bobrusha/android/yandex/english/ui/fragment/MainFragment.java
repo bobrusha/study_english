@@ -23,6 +23,11 @@ public class MainFragment extends Fragment {
         v.findViewById(R.id.option_choose_translation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Согласно dependency inversion principle, лучше заставлять активити реализовывать некий интерфейс,
+                // скажем, NavigationManager, в onAttach кастить в него (будет падение, если хост его
+                // не реализует - это то, что надо, так как это всего лишь ошибка разработчика) и запоминать в поле, а в
+                // onDetach обнулять (чтобы не было утечки). Интерфейс этот как раз имеет методы а-ля takeMeHereAndThere.
+                // Код становится чище и надежнее, нет соблазна дернуть что-нибудь из огромного public API Activity.
                 ((MainActivity) getActivity()).openNewFragment(new ChooseTranslationFragment());
             }
         });
